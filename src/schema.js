@@ -12,7 +12,9 @@ const typeDefs = gql`
 
   type Mutation {
     "Increment the number of views of a given track, when the track card is clicked"
-    incrementTrackViews(id: ID!): IncrementTrackViewsResponse!
+    incrementTrackViews(
+      id: ID!
+    ): IncrementTrackViewsResponse!
   }
 
   type IncrementTrackViewsResponse {
@@ -35,8 +37,9 @@ const typeDefs = gql`
     author: Author!
     "The track's illustration to display in track card or track page detail"
     thumbnail: String
-    "The track's approximate length to complete, in minutes"
+    "The track's approximate length to complete, in seconds"
     length: Int
+      @deprecated(reason: "Use durationInSeconds instead")
     "The number of modules this track contains"
     modulesCount: Int
     "The track's complete description, can be in markdown format"
@@ -45,6 +48,8 @@ const typeDefs = gql`
     numberOfViews: Int
     "The track's complete array of Modules"
     modules: [Module!]!
+    "Track's duration in seconds"
+    durationInSeconds: Int
   }
 
   "Author of a complete Track or a Module"
@@ -61,12 +66,15 @@ const typeDefs = gql`
     id: ID!
     "The module's title"
     title: String!
-    "The module's length in minutes"
+    "The module's length in seconds"
     length: Int
+      @deprecated(reason: "Use durationInSeconds instead")
     "The module's text-based description, can be in markdown format. In case of a video, it will be the enriched transcript"
     content: String
     "The module's video url, for video-based modules"
     videoUrl: String
+    "Module's duration in seconds"
+    durationInSeconds: Int
   }
 `;
 
